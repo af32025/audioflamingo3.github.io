@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <title>Audio Flamingo 3: Advancing Audio Intelligence with Open Large Audio Language Models</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="helper-v2.js" defer=""></script>
+    <style>
+        td {
+            text-align: right;
+            vertical-align: middle;
+            padding: 0 24px;
+        }
+
+        audio {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .timestamp-label {
+            color: gray;
+        }
+
+        table.wide-audio audio {
+            width: 40vw;
+            max-width: 40vw;
+        }
+
+        tr:not(:first-child) {
+            border-top: 1px solid lightgrey;
+            /* Use light gray color for the border */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container pt-5 mt-5">
+        <div class="text-center" style="color: rgb(228, 8, 217);">
+            <h1 style="color: rgb(225, 33, 119);">
+                Audio Flamingo 3<br>Advancing Audio Intelligence with Open Large Audio Language Models
+            </h1>
+        </div>
+        <br><br>
+        <div>
+            <p>
+                <b>Abstract. </b>    <p>
+                We present Audio Flamingo 3 (AF3), a fully open state-of-the-art (SOTA) large audio-language model that advances reasoning and understanding across speech, sound, and music. AF3 introduces: (i) AF-Whisper, a unified audio encoder trained using a novel strategy for joint representation learning across all 3 modalities of speech, sound, and music; (ii) flexible, on-demand thinking, allowing the model to deliberately think before answering; (iii) multi-turn, multi-audio chat; (iv) long audio understanding and reasoning (including speech) up to 10 minutes; and (v) voice-to-voice interaction. To train AF3, we introduce AudioSkills-XL and LongAudio-XL, two large-scale datasets with 4.5M and 1M new audio QA pairs, respectively, designed for broad audio reasoning and long audio understanding. Being fully open, we detail the practices in building AF3, including architecture, training, inference, and the evaluation pipeline. Using only open-source audio data, AF3 achieves new SOTA results on over 20+ audio understanding and reasoning benchmarks, outperforming most open and proprietary models. We will open-source all our code, data, and checkpoints upon paper acceptance.
+            </p>
+        </div>
+    </div>
+    <style>
+        .table-pagination {
+            display: none;
+            /* Hide all tables with pagination class by default */
+        }
+
+        /* .cat {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('static/omcat-logo.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1; 
+            transition: transform 4s linear, opacity 2s ease-in-out; 
+        }
+
+        @keyframes fly {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(calc(100vw - 100px), calc(100vh - 100px)); }
+        } */
+
+    </style>
+    <script>
+             function getRandomPosition() {
+            let randomX = Math.floor(Math.random() * window.innerWidth);
+            let randomY = Math.floor(Math.random() * window.innerHeight);
+            return [randomX, randomY];
+        }
+
+        function createFlyingCat() {
+            const cat = document.createElement('div');
+            cat.classList.add('cat');
+
+            const [x, y] = getRandomPosition();
+            cat.style.left = `${x}px`;
+            cat.style.top = `${y}px`;
+
+            document.body.appendChild(cat);
+
+            // Move the cat to a random position and disappear when off the screen
+            setTimeout(() => moveCat(cat), 1000);
+        }
+
+        function moveCat(cat) {
+            const [newX, newY] = getRandomPosition();
+            const catRect = cat.getBoundingClientRect();
+
+            cat.style.transition = 'transform 4s linear';
+            cat.style.transform = `translate(${newX - catRect.left}px, ${newY - catRect.top}px)`;
+
+            // Remove the cat from the DOM after 4 seconds (once it's moved off the screen)
+            setTimeout(() => {
+                cat.remove();
+            }, 4000);
+        }
+
+        // Create 10 flying cats every 2 seconds
+        setInterval(() => {
+            createFlyingCat();
+        }, 5000);
+    </script>
+
+
+
+
+</body>
+
+</html>
