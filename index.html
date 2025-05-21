@@ -1,13 +1,16 @@
 <html>
 
 <head>
-    <title>Audio Flamingo 3: Advancing Audio Intelligence with Open Large Audio Language Models</title>
+    <title>Audio Flamingo 3</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="helper-v2.js" defer=""></script>
     <style>
+        header img {
+            border-radius: 50%;
+        }
         td {
             text-align: right;
             vertical-align: middle;
@@ -37,85 +40,651 @@
 
 <body>
     <div class="container pt-5 mt-5">
-        <div class="text-center" style="color: rgb(228, 8, 217);">
-            <h1 style="color: rgb(225, 33, 119);">
-                Audio Flamingo 3:<br>Advancing Audio Intelligence with Open Large Audio Language Models
-            </h1>
+        <div class="text-center">
+            <h1><img src="static/logo-no-bg.png" alt="Logo" width="100" height="110"> <br>Audio Flamingo 3: <br>Advancing Audio Intelligence with Fully Open <br>Large Audio Language Models</h1>
         </div>
         <br><br>
         <div>
             <p>
-                <b>Abstract.</b>
-                We present Audio Flamingo 3 (AF3), a fully open state-of-the-art (SOTA) large audio-language model that advances reasoning and understanding across speech, sound, and music. AF3 introduces: (i) AF-Whisper, a unified audio encoder trained using a novel strategy for joint representation learning across all 3 modalities of speech, sound, and music; (ii) flexible, on-demand thinking, allowing the model to deliberately think before answering; (iii) multi-turn, multi-audio chat; (iv) long audio understanding and reasoning (including speech) up to 10 minutes; and (v) voice-to-voice interaction. To train AF3, we introduce AudioSkills-XL and LongAudio-XL, two large-scale datasets with 4.5M and 1M new audio QA pairs, respectively, designed for broad audio reasoning and long audio understanding. Being fully open, we detail the practices in building AF3, including architecture, training, inference, and the evaluation pipeline. Using only open-source audio data, AF3 achieves new SOTA results on over 20+ audio understanding and reasoning benchmarks, outperforming most open and proprietary models. We will open-source all our code, data, and checkpoints upon paper acceptance.
+                <b>Abstract. </b>We present Audio Flamingo 3 (AF3), a <b>fully open</b> state-of-the-art (SOTA) large audio-language model that advances reasoning and understanding across speech, sound, and music. 
+                AF3 introduces: <br>(i) <b>AF-Whisper</b>, a unified audio encoder trained using a novel strategy for joint representation learning across all 3 modalities of speech, sound, and music; 
+                <br>(ii) flexible, <b>on-demand thinking</b>, allowing the model to do chain-of-thought reasoning before answering; 
+                <br>(iii) multi-turn, multi-audio <b>chat</b>; <br>(iv) <b>long audio</b> understanding and reasoning (including speech) up to 10 minutes; 
+                and <br>(v) <b>voice-to-voice</b> interaction. 
+                <br>To enable these capabilities, we propose several large-scale training datasets curated using novel strategies, including AudioSkills-XL, LongAudio-XL, AF-Think, and AF-Chat, 
+                and train AF3 with a novel five-stage curriculum-based training strategy. 
+                Trained on only open-source audio data, AF3 achieves new SOTA results on over 20+ (long) audio understanding and reasoning benchmarks, 
+                surpassing both open-weight and closed-source models trained on much larger datasets. 
             </p>
         </div>
     </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+        <div class="column is-full-width">
+            <h2>Key Features</h2>
+            <p>
+                💡 Audio Flamingo 3 has strong <span style="color: green; font-weight: bold;">audio, music and speech understanding</span> capabilities.<br>
+                💡 Audio Flamingo 3 supports on-demand thinking for <span style="color: green; font-weight: bold;">chain-of-though reasoning.</span><br>
+                💡 Audio Flamingo 3 supports <span style="color: green; font-weight: bold;">long audio and speech understanding</span> for audios up to 10 minutes.<br>
+                💡 Audio Flamingo 3 can have <span style="color: green; font-weight: bold;">multi-turn, multi-audio chat</span> with users under complex context.<br>
+                💡 Audio Flamingo 3 has <span style="color: green; font-weight: bold;">voice-to-voice conversation</span> abilities.<br>
+            </p>
+        </div>
+    </div>
+
+
     <style>
         .table-pagination {
             display: none;
             /* Hide all tables with pagination class by default */
         }
-
-        /* .cat {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background-image: url('static/omcat-logo.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.1; 
-            transition: transform 4s linear, opacity 2s ease-in-out; 
-        }
-
-        @keyframes fly {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(calc(100vw - 100px), calc(100vh - 100px)); }
-        } */
-
     </style>
     <script>
-             function getRandomPosition() {
-            let randomX = Math.floor(Math.random() * window.innerWidth);
-            let randomY = Math.floor(Math.random() * window.innerHeight);
-            return [randomX, randomY];
+        function showPage(tableId, link, headingId, event) {
+
+            event.preventDefault()
+            if (tableId === 'rich-long-2') {
+                document.getElementById('rich-long-1').style.display = 'none';
+            }
+            if (tableId === 'rich-long-1') {
+                document.getElementById('rich-long-2').style.display = 'none';
+            }
+            // Hide tables in the same container
+            const containerId = headingId === 'mainHeading1' ? 'container-1' : 'container-2';
+            document.querySelectorAll(`.${containerId} .table-pagination`).forEach(table => {
+                table.style.display = 'none';
+            });
+
+            // Show the selected table
+            document.getElementById(tableId).style.display = 'table';
+
+            // Update heading dynamically based on tableId
+            let headingText = '';
+            if (tableId === 'rich-captions-1') {
+                headingText = 'AF3 for audio 🔊';
+            } else if (tableId === 'rich-captions-2') {
+                headingText = 'AF3 for music 🎵';
+            } else if (tableId === 'rich-captions-3') {
+                headingText = 'AF3 for speech 🗣️';
+            } else if (tableId === 'rich-long-1') {
+                headingText = 'AF3 for long audio';
+            } else if (tableId === 'rich-long-2') {
+                headingText = 'AF3 for long speech';
+            }
+
+            // Include the rocket emoji (U+1F680)
+            document.getElementById(headingId).innerHTML = ' 🚀' + headingText;
+
+            // Toggle active state for pagination links
+            document.querySelectorAll('.pagination .page-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            link.parentElement.classList.add('active');
+            // document.querySelector(`.${containerId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-
-        function createFlyingCat() {
-            const cat = document.createElement('div');
-            cat.classList.add('cat');
-
-            const [x, y] = getRandomPosition();
-            cat.style.left = `${x}px`;
-            cat.style.top = `${y}px`;
-
-            document.body.appendChild(cat);
-
-            // Move the cat to a random position and disappear when off the screen
-            setTimeout(() => moveCat(cat), 1000);
-        }
-
-        function moveCat(cat) {
-            const [newX, newY] = getRandomPosition();
-            const catRect = cat.getBoundingClientRect();
-
-            cat.style.transition = 'transform 4s linear';
-            cat.style.transform = `translate(${newX - catRect.left}px, ${newY - catRect.top}px)`;
-
-            // Remove the cat from the DOM after 4 seconds (once it's moved off the screen)
-            setTimeout(() => {
-                cat.remove();
-            }, 4000);
-        }
-
-        // Create 10 flying cats every 2 seconds
-        setInterval(() => {
-            createFlyingCat();
-        }, 5000);
     </script>
 
+    <div class="text-center">
+        <h2>Audio Understanding</h2>
+
+    </div>
+    <div class="text-center">
+        <p>Audio Flamingo 3 not only achieves the state-of-the-art on audio understanding benchmarks, but also understands
+            audio in depth. <br>
+            We show strengths of AF3 on (1) audio understanding, (2) music understanding, (3) speech understanding.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded container-1">
+        <h4 id="mainHeading1">&#128640; AF3 for audio 🔊</h4>
+        <div class="flex-container">
+            <div class="table-responsive pt-1">
+                <table class="table-pagination pt-1" id="rich-captions-1" style="display: table;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">Prev. SOTA</th>
+                            <th style="text-align: center">AF3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/audio/9f7114b5-39aa-468a-8ac1-d7bbd6dc6069.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">For the given audio, identify the source of the power tools. Choose the correct option from the following options: (A) Construction site (B) Garage (C) Factory (D) Garden</td>
+                            <td style="text-align: center">(A) Construction site</td>
+                            <td style="text-align: center">(B) Garage</td>
+                            <td style="text-align: center">(A) Construction site</td>
+                        </tr>
+
+                        <tr style="height: 120px;">
+                            <td style="text-align: left"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/audio/81ae625c-fc8a-4c99-8085-e0df0e0c3b10.wav" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Based on the given audio, identify the source of the speech. Choose the correct option from the following options:(A) Man (B) Woman (C) Child (D) Robot</td>
+                            <td style="text-align: center">(A) Man</td>
+                            <td style="text-align: center">The source of the speech is a woman.</td>
+                            <td style="text-align: center">(A) Man</td>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/audio/99c98fcc-54f5-41e5-80ea-50f312c0ef82.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">For the given audio, identify the source of the explosion. Choose the correct option from the following options:(A) Dynamite (B) Fireworks (C) Gas leak (D) Gunshot</td>
+                            <td style="text-align: center">(A) Dynamite</td>
+                            <td style="text-align: center">The audio does not provide enough information to definitively identify the source of the explosion.</td>
+                            <td style="text-align: center">(A) Dynamite</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/audio/c693bf2c-58bd-4251-bf4f-06c354009bae.wav" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Based on the given audio, identify the source of the squeal. Choose the correct option from the following options:(A) Door hinge (B) Brakes (C) Animal (D) Wind</td>
+                            <td style="text-align: center">(B) Brakes</td>
+                            <td style="text-align: center">the squeal is most likely from a door hinge, as it is a common source of squealing sounds in a room.</td>
+                            <td style="text-align: center">(B) Brakes</td>
+
+                        </tr>
+                    
+
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="table-responsive pt-1">
+                <table class="table-pagination pt-1" id="rich-captions-2">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">Prev. SOTA</th>
+                            <th style="text-align: center">AF3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/music/9cbae5ae-847c-44d5-8680-457fcf253ae0.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Which percussion instrument is <b>not</b> heard in the audio? Choose the correct option from the following options: (A) Cowbell (B) Kick drum (C) Shaker (D) Snare drum</td>
+
+                            <td style="text-align: center">(D) Snare drum</td>
+                            <td style="text-align: center">(A) Cowbell</td>
+                            <td style="text-align: center">(D) Snare drum</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/music/5e2ea04c-0693-4718-9e2c-51cdeb6eafe7.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Which instruments accompany the harmonica in the audio? Choose the correct option from the following options: (A) Piano and Violin (B) Drums and Bass (C) Double Bass and Acoustic Guitar (D) Synthesizer and Electric Guitar</td>
+
+                            <td style="text-align: center">(C) Double Bass and Acoustic Guitar</td>
+                            <td style="text-align: center">(A) Piano and Violin</td>
+                            <td style="text-align: center">(C) Double Bass and Acoustic Guitar</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/music/3ef184c0-8fcc-4373-84ca-0e7831d50ca7.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Which of the following chords is played from 17.14 to 20.00 seconds in the audio? Choose the correct option from the following options: (A) A#:maj/1 (B) F:maj/1 (C) D#:maj/1 (D) G:min/1</td>
+
+                            <td style="text-align: center">(C) D#:maj/1</td>
+                            <td style="text-align: center">(A) A#:maj/1</td>
+                            <td style="text-align: center">(C) D#:maj/1 </td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/music/04f3edb0-4cf9-4877-87ca-9da7cbb47a15.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">During which time frame is the chord F#:maj/1 played in the audio? Choose the correct option from the following options: (A) 4.36 to 6.55 (B) 6.55 to 8.73 (C) 8.73 to 10.91 (D) 10.91 to 13.09</td>
+
+                            <td style="text-align: center">(B) 6.55 to 8.73</td>
+                            <td style="text-align: center">(A) 4.36 to 6.55</td>
+                            <td style="text-align: center">(B) 6.55 to 8.73</td>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+            <div class="table-responsive pt-1">
+                <table class="table-pagination pt-1" id="rich-captions-3">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">Prev. SOTA</th>
+                            <th style="text-align: center">AF3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/speech/bcc6057d-0dda-435d-b956-a96ab27bc9e4.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">What about the final sentence indicates sarcasm? Choose the correct option from the following options:  (A) No one uses lists anymore.  (B) Floppy disks are outdated technology.  (C) Five inches is too small.  (D) Floppy disks are very fast.</td>
+                            <td style="text-align: center">(D) Floppy disks are very fast</td>
+                            <td style="text-align: center">(A) No one uses lists anymore</td>
+                            <td style="text-align: center">(D) Floppy disks are very fast</td>
+
+                        </tr>
+                        
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/speech/0337451b-13f0-4242-a577-c4501cb1319e.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">In which year was the rover mentioned by the speaker launched? Choose the correct option from the following options:  (A) two thousand and four  (B) two thousand and twelve  (C) one thousand, nine hundred and ninety-six  (D) one thousand, nine hundred and eighty-nine</td>
+                            <td style="text-align: center">(C) one thousand, nine hundred and ninety-six</td>
+                            <td style="text-align: center">To determine the correct year the rover was launched, we need to look at the audio content for any specific year mentioned. The speaker states, "The launch of the first rover on Mars opened new frontiers in planetary exploration." However, the audio does not provide a specific year for the launch of the rover. Therefore, based on the information given, we cannot accurately determine the year of the rover's launch from the provided options.    The correct answer is not provided in the options given.
+                            </td>
+                            <td style="text-align: center">(C) one thousand, nine hundred and ninety-six</td>
+
+               
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/speech/be84d293-5e9c-4158-9a1e-b4dd1acb7d70.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Can you tell me how many individuals are currently speaking? Choose the correct option from the following options:  (A) two  (B) six  (C) three  (D) five</td>
+                            <td style="text-align: center">(C) three
+                            </td>
+                            <td style="text-align: center">(A) two</td>
+                            <td style="text-align: center">(C) three</td>
 
 
+                            
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/speech/339a1acd-afcb-466b-a7b1-8661e59b1e56.wav" type="audio/wav">Your browser does
+                                    not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Why is the last phrase in the dialogue an example of sarcasm? Choose the correct option from the following options:  (A) Implying snoring is desirable.  (B) Genuinely worried about sleeping.  (C) Complimenting the snoring sound.  (D) Second speaker likes snoring.</td>
+                            <td style="text-align: center">(A) Implying snoring is desirable.</td>
+                            <td style="text-align: center">The speaker is actually making a joke about the snoring, indicating that they are not bothered by it. Therefore, the correct answer is (B) Genuinely worried about sleeping.</td>
+                            <td style="text-align: center">(A) Implying snoring is desirable.</td>
 
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+            
+            
+        </div>
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+            <li class="page-item active">
+                <a class="page-link" href="#" onclick="showPage('rich-captions-1', this, 'mainHeading1', event)">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="showPage('rich-captions-2', this, 'mainHeading1', event)">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="showPage('rich-captions-3', this, 'mainHeading1', event)">3</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="text-center">
+        <h2>Chain-of-Thought Reasoning</h2>
+    </div>
+    <div class="text-center">
+        <p>Audio Flamingo 3 supports flexible, on-demand reasoning, steering the model to correct predictions with accurate reasoning steps.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+        <div class="container pt-1">
+            <div class="table-responsive pt-1">
+                <table class="table pt-1" id="think">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">AF3</th>
+                            <th style="text-align: center">AF3 Think</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/audio/54b27850-8877-45bf-8528-f824590b1e59.wav" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">How many unique sounds are present in this audio? Choose the correct option from the following options:(A) 2 (B) 3 (C) 4 (D) 5</td>
+                            <td style="text-align: center">(C) 4</td>
+                            <td style="text-align: center">(C) 4</td>
+                            <td style="text-align: center">The audio contains distinct sound events: bird chirping, cat meowing, ice cracking, and horse neighing. These are four separate sound types. Therefore, the answer is: (C) 4</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/think/BV1vc411S7ro_00-00-00_00-00-30.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">In the video, the woman is singing. Is the location indoors or outdoors? Choose the correct option from the following options:(A) Indoors(B) Outdoors</td>
+                            <td style="text-align: center">(B) Outdoors</td>
+                            <td style="text-align: center">(A) Indoors</td>
+                            <td style="text-align: center">The audio caption mentions the presence of birds chirping, which is a common outdoor sound. This suggests that the singing is taking place outside. Therefore, the answer is: (B) Outdoors.</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/think/AB2p8YFMt34_00-00-00_00-00-10.wav" type="audio/wav">Your browser does
+                                    not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">How many students are in this class? Choose the correct option from the following options:(A) 3 (B) 2 (C) 5 (D) 1</td>
+                            <td style="text-align: center">(D) 1</td>
+                            <td style="text-align: center">(B) 2</td>
+                            <td style="text-align: center">The speaker mentions 'just you and me,' indicating a small class size. The presence of a teacher and the sound of a door suggest a classroom setting. Therefore, the most plausible answer is: (D) 1</td>
+
+                        </tr>
+
+                        
+                    </thead>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+    <div class="text-center">
+        <h2>Long audio and speech understanding</h2>
+    </div>
+    <div class="text-center">
+        <p>Below we show how AF3 outperforms baselines on (1) long audio understanding and (2)
+            long speech understanding, for audios upto 10 minutes in length.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded container 2">
+        <h4 id="mainHeading2">&#128640; AF3 for long audio</h4>
+        <div class="flex-container">
+            <div class="table-responsive pt-1">
+                <table class="table-pagination pt-1" id="rich-long-1" style="display: table;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Ground-truth </th>
+                            <th style="text-align: center">Prev. SOTA </th>
+                            <th style="text-align: center">Audio Flamingo 3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_audio/000000035988.94.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br> Instruction: During the sequence with a man walking down a hallway, what indicates a rising tension in the audio?</td>
+                            <td style="text-align: center">The orchestra playing a waltz with a crescendo movement by timpani at the end builds tension.</td>
+                            <td style="text-align: center">The sound of a gun being cocked and fired indicates a rising tension in the audio.</td>
+                            <td style="text-align: center">The orchestra plays a dramatic tune with a crescendo, featuring a string section and timpani, creating a suspenseful atmosphere</td>
+                        </tr>
+                        
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_audio/000000786159.31.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br> Instruction: How does the tone of female speech change throughout the audio? Choose the correct option among the options below: (A) Sad to happy (B) Happy to sad (C) Neutral to happy (D) Happy to neutral.</td>
+                            <td style="text-align: center">(A) Sad to happy</td>
+                            <td style="text-align: center">The tone of the female speech changes from happy to sad. Therefore, the correct answer is (B) Happy to sad.</td>
+                            <td style="text-align: center">(A) Sad to happy</td>
+                            
+                        </tr>
+
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_audio/000003031966.31.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br> Instruction: What is the significant background sound when the woman is checking the oven?</td>
+                            <td style="text-align: center">The sound of a clock ticking at specific intervals and a brief tone followed by silence are prominent.</td>
+                            <td style="text-align: center">The significant background sound is music playing from 187.28 seconds to 190.28 seconds.</td>
+                            <td style="text-align: center">The sound of a clock ticking is heard.</td>.
+                            
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="table-responsive pt-1">
+                <table class="table-pagination pt-1" id="rich-long-2" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Ground-truth </th>
+                            <th style="text-align: center">Prev. SOTA </th>
+                            <th style="text-align: center">Audio Flamingo 3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_speech/30.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br>Instruction: In the conversation provided, is the comment 'Wow! Spinning that sounds like fun.' made by the speaker sarcastic?</td>
+                            <td style="text-align: center">Yes, the comment is sarcastic. The tone of 'Wow!' followed by 'Spinning that sounds like fun.' in response to someone being spun off the bed suggests sarcasm, as being spun off the bed is typically not considered fun.</td>
+                            <td style="text-align: center">No, the comment 'Wow! Spinning that sounds like fun.' is not sarcastic; it is an expression of genuine surprise and amusement.</td>
+                            <td style="text-align: center">Yes, the comment is sarcastic. The speaker uses a tone of disgust to express that the situation was not enjoyable, despite the literal meaning of the comment suggesting otherwise.</td>
+                            
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_speech/2033_164916.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br>Instruction: Based on the speech, what is the relationship between the speakers involved in the conversation?</td>
+                            <td style="text-align: center">The relationship between the speakers appears to be one of hierarchy and respect, likely in a formal setting, with a chief wazir, a chamberlain, and a sultan. The wazir shows deference to the chamberlain and the sultan, indicating a subordinate position seeking guidance and orders from higher authority figures.</td>
+                            <td style="text-align: center">The speakers involved in the conversation are likely to be in a position of authority, possibly a king and his ministers, as indicated by the references to a sultan, a wazir, and a chamberlain.</td>
+                            <td style="text-align: center">The speakers involved in the conversation appear to be of a hierarchical nature, with one speaker being a minister or wazir and the other being a chamberlain or a person of higher authority. The minister is addressing the chamberlain with respect and seeking guidance.</td>
+                            
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source
+                                        src="static/long_speech/t_837b89f2-26aa-4ee2-bdf6-f73f0dd59b26.wav"
+                                        type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio><br>Instruction: Why does one speaker express disbelief about the possibility of scoring 222 points in a football game?</td>
+                            <td style="text-align: center">The speaker is surprised because they primarily watch pro football, where such high scores are unheard of.</td>
+                            <td style="text-align: center">The speaker expresses disbelief because they consider it highly unlikely for a college football team to score that many points in a game, especially against a lower-ranked team.</td>
+                            <td style="text-align: center">The speaker finds it hard to believe because they are more accustomed to watching professional football, where such high scores are less common.</td>
+                            
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/long_speech/t_daca99d9-6cf0-4f47-8c7e-8f978031afee.wav" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio><br>Instruction: What is the specific reason given for why the huddle was originally invented in American football?</td>
+                            <td style="text-align: center">The huddle was invented because of a deaf quarterback named Paul D. Hubbard.</td>
+                            <td style="text-align: center">The huddle was originally invented because of a deaf quarterback.</td>
+                            <td style="text-align: center">The huddle was originally invented because of a deaf quarterback named Paul D. Hubbard.</td>
+                            
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <ul class="pagination justify-content-center">
+            <li class="page-item active">
+                <a class="page-link" href="#" onclick="showPage('rich-long-1',  this, 'mainHeading2',event)">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="showPage('rich-long-2',  this, 'mainHeading2', event)">2</a>
+            </li>
+        </ul>
+    </div>
+
+   
+    <div class="text-center">
+        <h2>Multi-audio Multi-turn Chat</h2>
+    </div>
+    <div class="text-center">
+        <p>Users can chat with Audio Flamingo 3, ask questions about multiple audios and refer to previous audios in context.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+        <div class="container pt-1">
+            <div class="table-responsive pt-1">
+                <table class="table pt-1" id="dialogue">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <!-- <th style="text-align: center">Baseline</th> -->
+                            <th style="text-align: center">Dialogue</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center">
+                                <p> <audio controls="" controlslist="nodownload" class="px-1">
+                                        <source src="static/chat/WhDJDIviAOg_120_10.mp3" type="audio/wav">Your
+                                        browser does not
+                                        support the audio element.
+                                    </audio></p>
+                                <p> <audio controls="" controlslist="nodownload" class="px-1">
+                                        <source src="static/chat/443496.wav" type="audio/wav">Your
+                                        browser does not
+                                        support the audio element.
+                                    </audio>
+                                </p>
+                                <p> <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/000000034048_segment_7.wav" type="audio/wav">Your
+                                    browser does not
+                                    support the audio element.
+                                </audio>
+                            </p>
+
+                            </td>
+                            <td style="text-align: left">
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-0]The narration here feels calm and almost poetic. What aspects of the audio help create such a peaceful and uplifting vibe overall?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: The peaceful vibe is shaped by several elements working together. The narrator speaks in a steady, neutral tone, without any sharp changes in pitch or emotion, which immediately sets a calm mood. The background melody is uplifting but gentle, and the addition of bird chirps reinforces the sense of warmth and tranquility. All these sounds blend to create an atmosphere reminiscent of a serene transition between seasons.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: The peaceful and uplifting vibe comes from several elements working together. The narrator's voice is steady and neutral, with a gentle pacing that avoids any urgency or tension. The background music is soft and melodic, which adds warmth and serenity. Additionally, the natural sounds of birds chirping reinforce a sense of tranquility and connection to nature, making the whole scene feel harmonious and optimistic.<br><br>
+                            
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Does the background music and nature sounds make the information more memorable or emotionally impactful?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: Absolutely. The background music and nature sounds don't just fill space—they support the narrator's message by evoking feelings of renewal and positivity. These auditory cues can help the listener connect emotionally, making the information more memorable and giving it a sense of place and time.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: Yes, the background music and nature sounds play a big role in making the information more memorable and emotionally impactful. The gentle music sets a positive mood, while the birdsong creates an immersive, serene atmosphere. These elements help the listener associate the content with feelings of peace and contentment, making the message about the changing seasons more vivid and emotionally resonant.<br><br>
+                            
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-2] Switching gears, the man in this next audio says 'I did,' but his tone is very different—almost negative. How does the way he speaks change the meaning?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: The tone here is key. Even though the words are simple, the man's delivery—marked by a sense of disgust or reluctance—adds emotional weight. The negative tone suggests regret, annoyance, or a sense of being bothered. Unlike the calm narration earlier, this short response feels tense and emotionally charged, changing the listener's perception of the situation.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: The man's tone is key here. His voice carries a sense of disgust or reluctance, which completely shifts the meaning of the phrase 'I did.' Instead of sounding proud or neutral, his delivery makes it feel like he's admitting something unpleasant or unwanted. The lack of background music and the presence of a car engine hum also add a sense of isolation or discomfort, reinforcing the negative emotion.<br><br>
+                            
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Would his disgust be as clear if there were background music or sound effects, like in the narration clip?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: If there were uplifting music or peaceful sounds in the background, it might soften or even mask his disgust, making it less apparent. In contrast, the lack of background sound here lets the tone of his voice stand out, making the emotional content unmistakable.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: If there were background music or sound effects, it could potentially soften or even contradict the sense of disgust in his voice. For example, gentle music might make his words seem less harsh, while tense or discordant sounds could amplify the negativity. In the narration clip, the absence of distracting sounds lets the listener focus entirely on the speaker's tone, making the emotion more direct and unmistakable.<br><br>
+                            
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-1]In this audio, a man sighs with clear disgust. How does a sigh communicate so much without words?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: A sigh can convey a lot through its sound alone—especially the way it's delivered. The length, intensity, and breathiness of the sigh, paired with subtle vocalizations or facial tension (even if unheard), can express feelings like frustration, disappointment, or disgust. Here, the disgusted sigh communicates emotional state even more clearly than words might.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: A sigh is a powerful nonverbal cue. The way he exhales, the length, and the intensity of the sound can all convey frustration, disappointment, or disgust. Even without words, the listener can pick up on the emotional weight through the rhythm and force of the sigh. It's a universal signal that often communicates more than a spoken phrase, especially when paired with a tone of voice that matches the emotion.<br><br>
+                            </td>
+                            
+
+                        </tr>
+                        
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h2>Voice-to-voice conversation</h2>
+    </div>
+    <div class="text-center">
+        <p>Audio Flamingo 3 can respond to voice queries given by the user directly by speaking, supporting voice-to-voice abilities.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+        <div class="container pt-1">
+            <div class="table-responsive pt-1">
+                <table class="table pt-1" id="voice">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">AF3</th>
+                            <th style="text-align: center">AF3 Voice</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/voice/alpaca_eval_0.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio><br>What are the names of some famous actors that started their careers on Broadway?</td>
+                            <td style="text-align: center">Some famous actors that started their careers on Broadway include: 1. Hugh Jackman 2. Meryl Streep 3. Denzel Washington 4. Julia Roberts 5. Christopher Walken 6. Anthony Rapp 7. Audra McDonald 8. Nathan Lane 9. Sarah Jessica Parker 10. Lin-Manuel Miranda</td>
+                            <td style="text-align: center">Some famous actors who started their careers on Broadway include Meryl Streep, Whoopi Goldberg, Al Pacino, and Denzel Washington. These talented individuals gained significant recognition and experience on the stage before achieving success in film and television.</td>
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                <source src="static/voice/0.wav" type="audio/wav">Your browser
+                                does not
+                                support the audio element.
+                            </audio></td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/voice/alpaca_eval_2.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio><br>Hi, my sister and her girlfriends want me to play kickball with them. Can you explain how the game is played, so they don't take advantage of me?</td>
+                            <td style="text-align: center">Kickball is a game similar to baseball, but with a large rubber ball instead of a bat and a ball. The game is usually played with two teams of six players each. Each team has three bases and a home plate. The players on the kicking team line up at home plate and take turns kicking the ball. The object of the game is to score runs by running around all three bases and back to home plate without being tagged out by the defense. The team with the most runs at the end of the game is the winner.</td>
+                            <td style="text-align: center">Of course! Kickball is a fun and active game. It's similar to soccer but with a larger, softer ball that you kick instead of dribbling. The game is typically played with two teams, and the main objective is to score goals by kicking the ball into the opposing team's goal. Players can use any part of their body except their hands and arms to move the ball. The game is usually played on a rectangular field with goals at each end. Teams take turns kicking the ball and defending against the other team's attempts to score. It's important to play fairly and communicate with your teammates to have a good game. Enjoy playing with your sister and her friends!</td>
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                <source src="static/voice/2.wav" type="audio/wav">Your browser
+                                does not
+                                support the audio element.
+                            </audio></td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/voice/alpaca_eval_3.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio><br>What is some cool music from the 1920s?</td>
+                            <td style="text-align: center">Some cool music from the 1920s includes jazz classics like Duke Ellington's "Mood Indigo," Louis Armstrong's "West End Blues," and Bessie Smith's "Down Hearted Blues." Other popular tunes from the era include Fats Waller's "Ain't Misbehavin," George Gershwin's "Rhapsody in Blue," and Irving Berlin's "Puttin' On the Ritz."</td>
+                            <td style="text-align: center">The 1920s was a vibrant decade for music, often referred to as the Jazz Age. Some cool music from that era includes "What a Wonderful World" by Louis Armstrong, "Take Me Out to the Ball Game" by the Andrews Sisters, and "Rhapsody in Blue" by George Gershwin. You might also enjoy "Sing, Sing, Sing" by Benny Goodman and "Moonlight Serenade" by Glenn Miller. Each of these songs captures the spirit and innovation of the 1920s.</td>
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                <source src="static/voice/3.wav" type="audio/wav">Your browser
+                                does not
+                                support the audio element.
+                            </audio></td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/voice/alpaca_eval_1.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio><br>How did US states get their names?</td>
+                            <td style="text-align: center">US states get their names from a variety of sources, including Native American tribes, Spanish explorers, British colonists, and even presidents. For example, the state of Alabama was named after the Native American tribe that lived in the area, while the state of Florida gets its name from the Spanish explorer, Ponce de Leon, who explored the area in the 1500s. Other states are named after English kings (like Virginia, named after England's "Virgin Queen," Queen Elizabeth I) or presidents (like Washington, named after George Washington)</td>
+                            <td style="text-align: center">The names of U.S. states often have fascinating origins. Many are derived from Native American languages, reflecting the indigenous cultures that lived in those areas. For example, "New York" comes from the Iroquois word "Onöndowa’ga," meaning "island of hills." Others are named after European explorers or significant geographical features, like "California," named after the California Current. Some states have names that reflect historical events or figures, such as "Virginia" in honor of Queen Elizabeth I. Additionally, a few states have names that are simply descriptive, like "Maine" which means "the land of many hills." Each state's name tells a unique story about its history and heritage.</td>
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                <source src="static/voice/1.wav" type="audio/wav">Your browser
+                                does not
+                                support the audio element.
+                            </audio></td>
+
+                        </tr>
+                        
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+    
 </body>
 
 </html>
