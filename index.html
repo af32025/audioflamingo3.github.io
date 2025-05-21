@@ -109,8 +109,11 @@
                 headingText = 'AF3 for long audio';
             } else if (tableId === 'rich-long-2') {
                 headingText = 'AF3 for long speech';
+            } else if (tableId === 'rich-chat-1') {
+                headingText = 'Sound Dialogue';
+            } else if (tableId === 'rich-chat-2') {
+                headingText = 'Music Dialogue';
             }
-
             // Include the rocket emoji (U+1F680)
             document.getElementById(headingId).innerHTML = ' 🚀' + headingText;
 
@@ -343,6 +346,9 @@
     </div>
 
 
+
+    
+
     <div class="text-center">
         <h2>Chain-of-Thought Reasoning</h2>
     </div>
@@ -396,6 +402,18 @@
                             <td style="text-align: center">The speaker mentions 'just you and me,' indicating a small class size. The presence of a teacher and the sound of a door suggest a classroom setting. Therefore, the most plausible answer is: (D) 1</td>
 
                         </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/think/Ch6Ae9DT6Ko_00-04-03_00-04-31.wav" type="audio/wav">Your browser does
+                                    not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">Why is the philosopher's name mentioned in the lyrics?(A) To express a sense of nostalgia (B) To indicate that language cannot express clearly, satirizing the inversion of black and white in the world (C) To add depth and complexity to the lyrics (D) To showcase the wisdom and influence of the philosopher</td>
+                            <td style="text-align: center">(B) To indicate that language cannot express clearly, satirizing the inversion of black and white in the world</td>
+                            <td style="text-align: center">(B) To indicate that language cannot express clearly, satirizing the inversion of black and white in the world</td>
+                            <td style="text-align: center">The lyrics mention the philosopher's name in a context where language is described as being 'muddled' and 'inverted,' suggesting a critique of language's ability to accurately convey meaning. This implies that the philosopher's name is used to highlight the limitations of language in expressing complex ideas. Therefore, the most plausible reason is: (B) To indicate that language cannot express clearly, satirizing the inversion of black and white in the world.</td>
+
+                        </tr>
 
                         
                     </thead>
@@ -406,6 +424,65 @@
         
     </div>
 
+    <div class="text-center">
+        <h2>Emergent Audio Understanding</h2>
+    </div>
+    <div class="text-center">
+        <p>Audio Flamingo 3 understands audio with unusual sounds never seen during training, showing emergent capabilities.</p>
+    </div>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+        <div class="container pt-1">
+            <div class="table-responsive pt-1">
+                <table class="table pt-1" id="think">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">Audio</th>
+                            <th style="text-align: center">Instruction</th>
+                            <th style="text-align: center">Ground-truth</th>
+                            <th style="text-align: center">AF3</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/emergent/Dogs barking in sync with the music.wav" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">What is surprising about the relationship between the barking and the music?</td>
+                            <td style="text-align: center">Dogs barking in sync with the music</td>
+                            <td style="text-align: center">The barking and music are synchronized, creating a rhythmic and harmonious interaction.</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: center"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/emergent/Aside from _Interstellar Spaces_, Saxophones do not bark nor meow.wav" type="audio/wav">Your browser does not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">What makes this saxophone performance unlike typical saxophone sounds?</td>
+                            <td style="text-align: center">Aside from "Interstellar Spaces", Saxophones do not bark nor meow</td>
+                            <td style="text-align: center">The saxophone is played in a way that resembles a dog howling, creating a unique and unusual sound.</td>
+
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left;"><audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/emergent/Unlikely existence of banjo and rain sounds at the same time in the training data.wav" type="audio/wav">Your browser does
+                                    not
+                                    support the audio element.
+                                </audio></td>
+                            <td style="text-align: center">What makes this combination of acoustic and ambient sounds unlikely to appear together?</td>
+                            <td style="text-align: center">Unlikely existence of banjo and rain sounds at the same time.</td>
+                            <td style="text-align: center">The contrast between the lively music and the sound of raindrops creates an unusual auditory experience.</td>
+
+                        </tr>
+                        
+
+                        
+                    </thead>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
 
     <div class="text-center">
         <h2>Long audio and speech understanding</h2>
@@ -527,7 +604,6 @@
             </li>
         </ul>
     </div>
-
    
     <div class="text-center">
         <h2>Multi-audio Multi-turn Chat</h2>
@@ -541,58 +617,95 @@
                 <table class="table pt-1" id="dialogue">
                     <thead>
                         <tr>
-                            <th style="text-align: center">Audio</th>
-                            <!-- <th style="text-align: center">Baseline</th> -->
-                            <th style="text-align: center">Dialogue</th>
+                            
+                            <th style="text-align: center">Sound Dialogue</th>
                         </tr>
                         <tr style="height: 120px;">
-                            <td style="text-align: center">
-                                <p> <audio controls="" controlslist="nodownload" class="px-1">
-                                        <source src="static/chat/WhDJDIviAOg_120_10.mp3" type="audio/wav">Your
-                                        browser does not
-                                        support the audio element.
-                                    </audio></p>
-                                <p> <audio controls="" controlslist="nodownload" class="px-1">
-                                        <source src="static/chat/443496.wav" type="audio/wav">Your
-                                        browser does not
-                                        support the audio element.
-                                    </audio>
-                                </p>
-                                <p> <audio controls="" controlslist="nodownload" class="px-1">
-                                    <source src="static/chat/000000034048_segment_7.wav" type="audio/wav">Your
-                                    browser does not
+                            <td style="text-align: left">
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/WhDJDIviAOg_120_10.mp3" type="audio/wav">Your browser
+                                    does not
                                     support the audio element.
                                 </audio>
-                            </p>
-
-                            </td>
-                            <td style="text-align: left">
-                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-0]The narration here feels calm and almost poetic. What aspects of the audio help create such a peaceful and uplifting vibe overall?</span><br>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">The narration here feels calm and almost poetic. What aspects of the audio help create such a peaceful and uplifting vibe overall?</span><br>
                                 <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: The peaceful vibe is shaped by several elements working together. The narrator speaks in a steady, neutral tone, without any sharp changes in pitch or emotion, which immediately sets a calm mood. The background melody is uplifting but gentle, and the addition of bird chirps reinforces the sense of warmth and tranquility. All these sounds blend to create an atmosphere reminiscent of a serene transition between seasons.<br>
                                 <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: The peaceful and uplifting vibe comes from several elements working together. The narrator's voice is steady and neutral, with a gentle pacing that avoids any urgency or tension. The background music is soft and melodic, which adds warmth and serenity. Additionally, the natural sounds of birds chirping reinforce a sense of tranquility and connection to nature, making the whole scene feel harmonious and optimistic.<br><br>
                             
                                 <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Does the background music and nature sounds make the information more memorable or emotionally impactful?</span><br>
                                 <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: Absolutely. The background music and nature sounds don't just fill space—they support the narrator's message by evoking feelings of renewal and positivity. These auditory cues can help the listener connect emotionally, making the information more memorable and giving it a sense of place and time.<br>
                                 <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: Yes, the background music and nature sounds play a big role in making the information more memorable and emotionally impactful. The gentle music sets a positive mood, while the birdsong creates an immersive, serene atmosphere. These elements help the listener associate the content with feelings of peace and contentment, making the message about the changing seasons more vivid and emotionally resonant.<br><br>
-                            
-                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-2] Switching gears, the man in this next audio says 'I did,' but his tone is very different—almost negative. How does the way he speaks change the meaning?</span><br>
+                                
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/000000034048_segment_7.wav" type="audio/wav">Your
+                                    browser does not
+                                    support the audio element.
+                                </audio>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Switching gears, the man in this next audio says 'I did,' but his tone is very different—almost negative. How does the way he speaks change the meaning?</span><br>
                                 <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: The tone here is key. Even though the words are simple, the man's delivery—marked by a sense of disgust or reluctance—adds emotional weight. The negative tone suggests regret, annoyance, or a sense of being bothered. Unlike the calm narration earlier, this short response feels tense and emotionally charged, changing the listener's perception of the situation.<br>
                                 <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: The man's tone is key here. His voice carries a sense of disgust or reluctance, which completely shifts the meaning of the phrase 'I did.' Instead of sounding proud or neutral, his delivery makes it feel like he's admitting something unpleasant or unwanted. The lack of background music and the presence of a car engine hum also add a sense of isolation or discomfort, reinforcing the negative emotion.<br><br>
                             
                                 <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Would his disgust be as clear if there were background music or sound effects, like in the narration clip?</span><br>
                                 <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: If there were uplifting music or peaceful sounds in the background, it might soften or even mask his disgust, making it less apparent. In contrast, the lack of background sound here lets the tone of his voice stand out, making the emotional content unmistakable.<br>
                                 <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: If there were background music or sound effects, it could potentially soften or even contradict the sense of disgust in his voice. For example, gentle music might make his words seem less harsh, while tense or discordant sounds could amplify the negativity. In the narration clip, the absence of distracting sounds lets the listener focus entirely on the speaker's tone, making the emotion more direct and unmistakable.<br><br>
-                            
-                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">[sound-1]In this audio, a man sighs with clear disgust. How does a sigh communicate so much without words?</span><br>
+                                
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/443496.wav" type="audio/wav">Your
+                                    browser does not
+                                    support the audio element.
+                                </audio>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">In this audio, a man sighs with clear disgust. How does a sigh communicate so much without words?</span><br>
                                 <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: A sigh can convey a lot through its sound alone—especially the way it's delivered. The length, intensity, and breathiness of the sigh, paired with subtle vocalizations or facial tension (even if unheard), can express feelings like frustration, disappointment, or disgust. Here, the disgusted sigh communicates emotional state even more clearly than words might.<br>
                                 <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: A sigh is a powerful nonverbal cue. The way he exhales, the length, and the intensity of the sound can all convey frustration, disappointment, or disgust. Even without words, the listener can pick up on the emotional weight through the rhythm and force of the sigh. It's a universal signal that often communicates more than a spoken phrase, especially when paired with a tone of voice that matches the emotion.<br><br>
                             </td>
                             
 
                         </tr>
+                        <tr>
+                            
+                            <th style="text-align: center">Music Dialogue</th>
+                        </tr>
+                        <tr style="height: 120px;">
+                            <td style="text-align: left">
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/FPSbCAANfbJLVSwD.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">This track feels really peaceful and introspective. What elements make it feel so calming and meditative?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: The calming and meditative quality here comes from several factors: the gentle, fingerpicked acoustic guitar creates a soft foundation, while the slow tempo allows plenty of space between phrases. The lo-fi production adds warmth, and the vocal delivery is very restrained, almost whispered. The harmonies are simple and minor, which adds to the introspective vibe. Altogether, these choices keep the mood serene and unhurried.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: The calming effect comes from several factors: the gentle acoustic instrumentation, the slow and steady tempo, and the soft, expressive vocal delivery. The arrangement leaves plenty of space, with minimal percussion and subtle melodic lines, which helps create a tranquil, reflective mood. The use of major key harmonies also adds to the sense of warmth and serenity.<br><br>
+                                
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/M4EkYYFTPoTkBa48.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Switching gears, this one is super energetic and synthetic. If I wanted to remix the calming folk piece into something closer to this, what would you suggest?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: To reimagine the peaceful folk song in the style of this energetic electronic track, start by increasing the tempo and layering in electronic drums with a steady, driving beat. Replace or double the acoustic guitar with bright synth arpeggios and pulsing bass. You could chop the original vocals and process them with effects like reverb or vocoder to match the electronic vibe. The contrast between the folk melody and the electro-pop rhythms will give it a fresh, danceable energy.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: To transform the folk track into a more energetic, synth-driven style, start by increasing the tempo and introducing electronic drums with a punchy, danceable groove. Replace or layer the acoustic instruments with bright, rhythmic synths and arpeggiators. You could also process the vocals with effects like vocoder or light autotune for a more electronic feel. The key is to maintain the melodic core but reframe it with bold, synthetic textures and a driving beat.<br><br>
+                                
+                                
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">Would I need to change the chord progression, or can I keep the original harmonies?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: You can generally keep the original chord progression, especially if you want to preserve the song's emotional core. However, adding some brighter chords or incorporating major-key elements, as in the electronic piece, can help match the upbeat feel. You might also want to experiment with reharmonizing certain sections to better fit the new tempo and groove.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: You can often keep the original chord progression, especially if it's strong and memorable. However, you might want to simplify or reharmonize certain sections to fit the new style. Sometimes, adding extended or suspended chords with synths can enhance the energy while preserving the song's emotional core.<br><br>
+                                
+                                <audio controls="" controlslist="nodownload" class="px-1">
+                                    <source src="static/chat/jwx0rde3DVH1WUPh.mp3" type="audio/wav">Your browser
+                                    does not
+                                    support the audio element.
+                                </audio>
+                                <span style="color: #1a73e8; font-weight: bold;">User</span>: <span style="color: #1a73e8; font-weight: bold;">This funk instrumental is super tight and rhythmic. Could I blend elements from it into either of the other two tracks?</span><br>
+                                <span style="color: #fbbc05; font-weight: bold;">Ground-truth</span>: Absolutely! The syncopated grooves and punchy horn lines from the funk track could add rhythmic interest and energy to either the folk or electronic song. For the folk piece, try layering subtle funk guitar or percussion beneath the acoustic elements. For the electronic track, you could sample horn stabs or use funky basslines to deepen the groove. Just make sure the rhythmic complexity complements the existing structure—this will help create a seamless fusion.<br>
+                                <span style="color: #34a853; font-weight: bold;">Audio Flamingo 3</span>: Absolutely! For the folk track, you could introduce syncopated bass lines and percussive guitar strumming inspired by funk, giving it a groovier, more upbeat feel. For the electronic track, layering funky guitar riffs or slap bass under the synths would add organic movement and complexity. In both cases, the rhythmic interplay and tight arrangements from funk can inject new life and danceability into the other genres.<br><br>
+                                
+                                
+                            </td>
+                            
+
+                        </tr>
                         
                     </thead>
-                    <tbody></tbody>
+               
                 </table>
             </div>
         </div>
@@ -677,7 +790,7 @@
                         </tr>
                         
                     </thead>
-                    <tbody></tbody>
+               
                 </table>
             </div>
             
